@@ -135,16 +135,17 @@ for row_index in s1_rows:
                                 if any(charge != 0 for charge in charge_values):
                                     # Divide charge by days_count and append data to csv_data
                                     for tache_value, charge_value in zip(tache_values, charge_values):
-                                        #print(tache_value)
-                                        #print(charge_value)
                                         adjusted_charge = charge_value / days_count
-                                        csv_data.append([date_str, resources_value, tache_value, adjusted_charge])
+                                        # Check if the combination already exists before appending
+                                        if [date_str, resources_value, tache_value, adjusted_charge] not in csv_data:
+                                            csv_data.append([date_str, resources_value, tache_value, adjusted_charge])
 
 # Create DataFrame from csv_data
 df_csv = pd.DataFrame(csv_data, columns=["date", "resource", "task","charge"])
 
 # Drop rows where charge is 0
 df_csv.drop(df_csv[df_csv['charge'] == 0].index, inplace=True)
+
 
 
 
