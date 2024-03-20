@@ -105,7 +105,7 @@ for row_index in s1_rows:
             if week_number_match:
                 week_number = week_number_match.group(1)
                 year = int(week_number_match.group(2))
-                print(f"Week number found in row {row_index}, column {col_index}: {week_number}, year {year}")
+                #print(f"Week number found in row {row_index}, column {col_index}: {week_number}, year {year}")
 
                 if 0 <= year <= 99:
                     year_str = f"{year:02d}"
@@ -120,31 +120,35 @@ for row_index in s1_rows:
                             current_date = start_date + datetime.timedelta(days=i)
                             if rapport_start_date <= current_date <= rapport_end_date:
                                 date_str = current_date.strftime(Date_format)
-                                print(date_str)
+                                #print(date_str)
                             
                                 tache_values = df.iloc[start_index + 2:end_index - 1, 0].tolist()
                                 charge_values = df.iloc[start_index + 2:end_index - 1, col_index].tolist()
                                 
-                                for tache_value, charge_value in zip(tache_values, charge_values):
-                                    if charge_value != 0:
-                                        num_matching_columns = sum(1 for cell_value in row_data if re.search(r'\sS\s', str(cell_value)))
-                                        
-                                        if num_matching_columns == 1:
-                                            # If only one column matches the week number, each day of the week has the same charge
-                                            days_count = 5
-                                        else:
-                                            # If multiple columns match the week number, divide charge evenly among 5 days
-                                            days_count = 5
-                                        
+                                if any(charge != 0 for charge in charge_values):
+                                    # Get the number of columns matching week_number_match
+                                    num_matching_columns = sum(1 for cell_value in row_data if re.search(r'\sS\s', str(cell_value)))
+
+                                    # Calculate days_count based on the number of matching columns
+                                    if num_matching_columns == 1:
+                                        days_count = (rapport_end_date - rapport_start_date).days + 1
+                                    else:
+                                        common_days = len(set(range((current_date - datetime.timedelta(days=4)).weekday(), current_date.weekday() + 1)) & set(range(0, 5)))
+                                        days_count = common_days if common_days > 0 else 1  
+                                    
+                                    # Divide charge by days_count and append data to csv_data
+                                    for tache_value, charge_value in zip(tache_values, charge_values):
+                                        #print(tache_value)
+                                        #print(charge_value)
                                         adjusted_charge = charge_value / days_count
                                         csv_data.append([date_str, resources_value, tache_value, adjusted_charge])
 
 # Create DataFrame from csv_data
 df_csv = pd.DataFrame(csv_data, columns=["date", "resource", "task","charge"])
 
-
-
+# Drop rows where charge is 0
 df_csv.drop(df_csv[df_csv['charge'] == 0].index, inplace=True)
+
 
 
 
