@@ -1,0 +1,16 @@
+{
+
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "Python Debugger: Current File",
+            "type": "debugpy",
+            "request": "launch",
+            "program": "${file}",
+            "args": [
+                "C:/Users/Nour Belhedi/Downloads/psnext_charges_consom_extractor/psnext_charges_consom_extractor/03_SW/031_Extractor/excel_config.properties"
+            ],
+            "console": "integratedTerminal"
+        }
+    ]
+}

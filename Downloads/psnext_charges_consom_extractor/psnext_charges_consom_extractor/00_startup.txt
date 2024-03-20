@@ -1,0 +1,41 @@
+1. Création d'un dépôt Git depuis le projet template bi_project_template
+
+2. Création de l'arborescence projet depuis le projet template bi_project_template
+
+
+    - 01_INPUTS (Documents d'entrée)
+    -- 011_DOC
+
+    - 02_ANALYSIS
+    -- 021_Specification
+    -- 022_UIs
+    -- 023_CRS (Cross Reading Sheet)
+    -- 024_Quotation
+
+
+    - 03_SW
+    -- 031_Extractor
+    -- 032_PBIXs
+    -- 033_Web
+    -- 034_SQL
+
+    - 04_Tests
+
+
+    - 11_Monitoring
+    -- 111_Project_Plan
+    -- 112_Kickoff
+    -- 113_CRs
+    -- 114_KPIs
+    -- 115_Bilan_Projet
+
+3. Archivage des documents d'entrée
+
+4. Travailler directements sur les dépôt Git en respect le Git Workflow
+- Travailler sur la branche develop
+- Effectuer des Merge Request de la branch develop vers la branche master
+
+
+
+
+
