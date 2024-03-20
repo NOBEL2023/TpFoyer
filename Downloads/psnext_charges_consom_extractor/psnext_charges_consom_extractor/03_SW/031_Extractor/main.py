@@ -97,10 +97,10 @@ for row_index in s1_rows:
 
     for col_index, cell_value in enumerate(row_data):
         if re.search(r'\sS\s', str(cell_value)):
-            print(cell_value)
+            #print(cell_value)
 
             week_number_match = re.search(r'\sS\s(\d+)\s-\s(\d+)', str(cell_value))
-            print(week_number_match)
+            #print(week_number_match)
 
             if week_number_match:
                 week_number = week_number_match.group(1)
@@ -115,6 +115,13 @@ for row_index in s1_rows:
                         end_index = s1_rows[i + 1] if i < len(s1_rows) - 1 else df.shape[0]
                         resources_value = df.iloc[start_index, 0]
 
+                        # Calculate days_count based on the number of matching columns
+                        num_matching_columns = sum(1 for cell_value in row_data if re.search(r'\sS\s', str(cell_value)))
+
+                        # Calculate days_count based on the common days with start_week_date and end_week_date
+                        common_days = len(set(range((end_date - datetime.timedelta(days=4)).weekday(), end_date.weekday() + 1)) & set(range(0, 5)))
+                        days_count = common_days if common_days > 0 else 1
+
                         # Iterate through the dates of the week
                         for i in range(5):  
                             current_date = start_date + datetime.timedelta(days=i)
@@ -126,16 +133,6 @@ for row_index in s1_rows:
                                 charge_values = df.iloc[start_index + 2:end_index - 1, col_index].tolist()
                                 
                                 if any(charge != 0 for charge in charge_values):
-                                    # Get the number of columns matching week_number_match
-                                    num_matching_columns = sum(1 for cell_value in row_data if re.search(r'\sS\s', str(cell_value)))
-
-                                    # Calculate days_count based on the number of matching columns
-                                    if num_matching_columns == 1:
-                                        days_count = (rapport_end_date - rapport_start_date).days + 1
-                                    else:
-                                        common_days = len(set(range((current_date - datetime.timedelta(days=4)).weekday(), current_date.weekday() + 1)) & set(range(0, 5)))
-                                        days_count = common_days if common_days > 0 else 1  
-                                    
                                     # Divide charge by days_count and append data to csv_data
                                     for tache_value, charge_value in zip(tache_values, charge_values):
                                         #print(tache_value)
@@ -148,8 +145,6 @@ df_csv = pd.DataFrame(csv_data, columns=["date", "resource", "task","charge"])
 
 # Drop rows where charge is 0
 df_csv.drop(df_csv[df_csv['charge'] == 0].index, inplace=True)
-
-
 
 
 
