@@ -34,6 +34,6 @@ public class Chambre {
     @ManyToOne(cascade = CascadeType.ALL)
     Bloc bloc;
 
-    System.out.println("Hello, world!");
+    System.out.println("Hello!");
 
 }
