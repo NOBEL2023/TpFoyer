@@ -4,10 +4,7 @@ package tn.esprit.tpfoyer.entity;
 import jakarta.persistence.*;
 import lombok.*;
 import lombok.experimental.FieldDefaults;
-
 import java.util.Set;
-
-
 @Entity
 @Getter
 @Setter
@@ -32,5 +29,6 @@ public class Chambre {
 
     @ManyToOne(cascade = CascadeType.ALL)
     Bloc bloc;
+
 
 }
