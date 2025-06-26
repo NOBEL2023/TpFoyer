@@ -6,6 +6,7 @@ import org.springframework.boot.test.context.SpringBootTest;
 import tn.esprit.tpfoyer.entity.Bloc;
 
 import java.util.List;
+import java.util.NoSuchElementException;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -30,20 +31,22 @@ public class BlocServiceIntegrationTest {
 
     @Test
     void testAddAndRemoveBloc() {
-        Bloc newBloc = new Bloc();
-        newBloc.setNomBloc("Test Bloc");
-        newBloc.setCapaciteBloc(50L);
+        // Given
+        Bloc bloc = new Bloc();
+        bloc.setNomBloc("Test Bloc");
+        bloc.setCapaciteBloc(99L);
 
-        // Add Bloc
-        Bloc savedBloc = blocService.addBloc(newBloc);
+        // When: add bloc
+        Bloc savedBloc = blocService.addBloc(bloc);
+
+        // Then: verify bloc was added
         assertNotNull(savedBloc.getIdBloc());
-        assertEquals("Test Bloc", savedBloc.getNomBloc());
+        Bloc retrievedBloc = blocService.retrieveBloc(savedBloc.getIdBloc());
+        assertEquals("Test Bloc", retrievedBloc.getNomBloc());
 
-        // Remove Bloc
+        // Cleanup
         blocService.removeBloc(savedBloc.getIdBloc());
-
-        // Verify it's removed
-        Bloc deletedBloc = blocService.retrieveBloc(savedBloc.getIdBloc());
-        assertNull(deletedBloc);
+        assertThrows(NoSuchElementException.class, () -> blocService.retrieveBloc(savedBloc.getIdBloc()));
     }
+
 }

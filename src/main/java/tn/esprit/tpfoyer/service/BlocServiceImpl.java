@@ -11,6 +11,7 @@ import tn.esprit.tpfoyer.repository.BlocRepository;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.NoSuchElementException;
 
 @Service
 @AllArgsConstructor
@@ -48,11 +49,12 @@ public class BlocServiceImpl  implements IBlocService {
         return listBselonC;
     }
 
-    @Transactional
-    public Bloc retrieveBloc(Long blocId) {
-
-        return blocRepository.findById(blocId).get();
+    @Override
+    public Bloc retrieveBloc(Long idBloc) {
+        return blocRepository.findById(idBloc)
+                .orElseThrow(() -> new NoSuchElementException("Bloc with ID " + idBloc + " not found"));
     }
+
 
 
     public Bloc addBloc(Bloc c) {
