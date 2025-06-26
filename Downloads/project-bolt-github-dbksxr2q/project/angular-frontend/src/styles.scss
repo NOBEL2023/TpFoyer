@@ -1,0 +1,136 @@
+/* You can add global styles to this file, and also import other style files */
+@import '~@angular/material/prebuilt-themes/indigo-pink.css';
+
+html, body { 
+  height: 100%; 
+  margin: 0; 
+  font-family: Roboto, "Helvetica Neue", sans-serif; 
+  background-color: #fafafa;
+}
+
+.container-fluid {
+  padding: 20px;
+  min-height: calc(100vh - 64px);
+}
+
+.form-container {
+  max-width: 600px;
+  margin: 0 auto;
+  padding: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.btn-primary {
+  background-color: #3f51b5;
+  border-color: #3f51b5;
+}
+
+.btn-primary:hover {
+  background-color: #303f9f;
+  border-color: #303f9f;
+}
+
+.table-container {
+  margin-top: 20px;
+  background: white;
+  border-radius: 8px;
+  box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+  overflow: hidden;
+}
+
+.alert {
+  margin-top: 15px;
+}
+
+.loading-spinner {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  height: 200px;
+}
+
+.action-buttons {
+  display: flex;
+  gap: 10px;
+}
+
+.action-buttons button {
+  min-width: 80px;
+}
+
+// Global snackbar styles
+.success-snackbar {
+  background-color: #4caf50 !important;
+  color: white !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: white !important;
+  }
+}
+
+.error-snackbar {
+  background-color: #f44336 !important;
+  color: white !important;
+  
+  .mat-mdc-snack-bar-action {
+    color: white !important;
+  }
+}
+
+// Improved form styling
+.mat-mdc-form-field {
+  .mat-mdc-text-field-wrapper {
+    background-color: #fafafa;
+  }
+  
+  &.mat-focused .mat-mdc-text-field-wrapper {
+    background-color: white;
+  }
+}
+
+// Better table styling
+.mat-mdc-table {
+  .mat-mdc-header-row {
+    background-color: #f5f5f5;
+  }
+  
+  .mat-mdc-row:hover {
+    background-color: #f9f9f9;
+  }
+}
+
+// Card improvements
+.mat-mdc-card {
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  border-radius: 8px;
+}
+
+// Button improvements
+.mat-mdc-raised-button {
+  box-shadow: 0 2px 4px rgba(0,0,0,0.2);
+  
+  &:hover {
+    box-shadow: 0 4px 8px rgba(0,0,0,0.3);
+  }
+}
+
+// Responsive improvements
+@media (max-width: 768px) {
+  .container-fluid {
+    padding: 10px;
+  }
+  
+  .mat-mdc-table {
+    font-size: 14px;
+  }
+  
+  .action-buttons {
+    flex-direction: column;
+    
+    button {
+      width: 100%;
+    }
+  }
+}
