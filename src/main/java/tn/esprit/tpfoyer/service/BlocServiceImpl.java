@@ -73,8 +73,9 @@ public class BlocServiceImpl  implements IBlocService {
     public List<Bloc> trouverBlocsSansFoyer() {
         return blocRepository.findAllByFoyerIsNull();
     }
-
-    public List<Bloc> trouverBlocsParNomEtCap(String nb, long c) {
+//creating an error
+public List<Bloc> trouverBlocsParNomEtCap(String nb){
+   // public List<Bloc> trouverBlocsParNomEtCap(String nb, long c) {
         return blocRepository.findAllByNomBlocAndCapaciteBloc(nb,  c);
     }
 
